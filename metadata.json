@@ -1,0 +1,5 @@
+{
+  "name": "ReadmitAI",
+  "description": "AI-powered clinical decision support tool for predicting 30-day hospital readmission risk.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,59 @@
+{
+  "entities": {
+    "predictions": {
+      "title": "Prediction",
+      "description": "A single patient readmission risk prediction record.",
+      "type": "object",
+      "properties": {
+        "patientId": { "type": "string", "description": "Unique identifier for the patient." },
+        "age": { "type": "string", "description": "Age range of the patient." },
+        "gender": { "type": "string", "description": "Gender of the patient." },
+        "timeInHospital": { "type": "integer", "description": "Days spent in hospital." },
+        "numMedications": { "type": "integer", "description": "Number of medications." },
+        "numDiagnoses": { "type": "integer", "description": "Number of diagnoses." },
+        "readmission_probability": { "type": "number", "description": "Calculated probability of readmission (0-1)." },
+        "risk_level": { "type": "string", "description": "Risk classification (Low, Moderate, High)." },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the prediction was made." },
+        "createdBy": { "type": "string", "description": "UID of the user who ran the prediction." }
+      },
+      "required": ["age", "gender", "readmission_probability", "risk_level", "timestamp", "createdBy"]
+    },
+    "analytics_summary": {
+      "title": "Analytics Summary",
+      "description": "Aggregated analytics for the hospital dashboard.",
+      "type": "object",
+      "properties": {
+        "totalPredictions": { "type": "integer" },
+        "highRiskCount": { "type": "integer" },
+        "moderateRiskCount": { "type": "integer" },
+        "lowRiskCount": { "type": "integer" },
+        "lastUpdated": { "type": "string", "format": "date-time" }
+      }
+    },
+    "users": {
+      "title": "User Profile",
+      "description": "Healthcare professional profile and role.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["Doctor", "Nurse", "Administrator"] },
+        "displayName": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/predictions/{predictionId}": {
+      "schema": "predictions",
+      "description": "Individual prediction records."
+    },
+    "/analytics/summary": {
+      "schema": "analytics_summary",
+      "description": "Global analytics summary document."
+    },
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profiles and roles."
+    }
+  }
+}
